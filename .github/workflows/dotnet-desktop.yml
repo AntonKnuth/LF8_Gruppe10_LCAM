@@ -1,0 +1,29 @@
+
+name: .NET Core Desktop
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+
+  build:
+
+    runs-on: windows-latest  # For a list of available runner types, refer to
+                             # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Settup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: 10.0.x
+    - name: Restore Dependencies
+      run: dotnet restore unit_test
+    - name: Build
+      run: dotnet build unit_test --no-restore
+    - name: Test
+      run: dotnet test unit_test --no-build --verbosity normal
+
