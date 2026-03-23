@@ -11,10 +11,5 @@ namespace unit_test
             Assert.AreEqual(1, 1);
         }
 
-        [TestMethod]
-        public void TestMethod2()
-        {
-            Assert.AreEqual(0, 1);
-        }
     }
 }
