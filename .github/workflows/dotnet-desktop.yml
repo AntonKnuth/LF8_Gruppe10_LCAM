@@ -3,16 +3,18 @@ name: .NET Core Desktop
 
 on:
   push:
-    branches: [ "master" ]
+    branches:
+    - "master"
+    - 'release/**'
   pull_request:
     branches: [ "master" ]
 
 jobs:
 
-  build:
+  build-and-test:
 
-    runs-on: windows-latest  # For a list of available runner types, refer to
-                             # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
+    runs-on: windows-latest
+                           
 
     steps:
     - uses: actions/checkout@v4
@@ -26,4 +28,5 @@ jobs:
       run: dotnet build unit_test --no-restore
     - name: Test
       run: dotnet test unit_test --no-build --verbosity normal
+    
 
