@@ -5,6 +5,8 @@ using BrainBuster.Models;
 
 namespace BrainBuster;
 
+// No Content
+
 // API-Client für OpenTDB (Open Trivia Database)
 // Docs: https://opentdb.com/api_config.php
 public class QuizApi
