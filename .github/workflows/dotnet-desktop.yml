@@ -20,10 +20,10 @@ jobs:
       with:
         dotnet-version: 10.0.x
     - name: Restore Dependencies
-      run: dotnet restore BrainBuster
+      run: dotnet restore ./BrainBuster
     - name: Build
-      run: dotnet build BrainBuster --no-restore
+      run: dotnet build ./BrainBuster --no-restore
     - name: Test
-      run: dotnet test BrainBuster --no-build --verbosity normal
+      run: dotnet test ./BrainBuster --no-build --verbosity normal
     
 
