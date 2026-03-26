@@ -4,14 +4,16 @@ name: .NET Core Desktop
 on:
   push:
     branches:
-    - 'release/**'
+    - "master"
+  pull_request:
+    branches: [ "master" ]
 
 jobs:
 
   build-and-test:
 
     runs-on: windows-latest
-                           
+
 
     steps:
     - uses: actions/checkout@v4
@@ -25,5 +27,4 @@ jobs:
       run: dotnet build unit_test --no-restore
     - name: Test
       run: dotnet test unit_test --no-build --verbosity normal
-    
 
