@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧠 Brain Buster - Quiz Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation -->
+        <nav class="navbar">
+            <div class="logo" onclick="showView('home')">🧠 Brain Buster</div>
+            <div class="nav-links">
+                <a href="#" onclick="showView('home')">Home</a>
+                <a href="#" onclick="showView('leaderboard')">Rangliste</a>
+                <a href="#" onclick="showView('admin')">Admin</a>
+                <span id="userStatus" class="user-status"></span>
+            </div>
+        </nav>
+
+        <!-- Home View -->
+        <div id="homeView" class="view active">
+            <div class="hero">
+                <h1>🧠 Brain Buster</h1>
+                <p>Teste dein Wissen in verschiedenen Kategorien!</p>
+            </div>
+
+            <!-- Login/Register Bereich -->
+            <div id="authSection" class="auth-section">
+                <div class="auth-tabs">
+                    <button class="tab-btn active" onclick="showAuthTab('login')">Einloggen</button>
+                    <button class="tab-btn" onclick="showAuthTab('register')">Registrieren</button>
+                </div>
+                
+                <div id="loginTab" class="auth-tab active">
+                    <input type="text" id="loginUsername" placeholder="Username" />
+                    <input type="password" id="loginPassword" placeholder="Passwort" />
+                    <button onclick="login()" class="btn btn-primary">Login</button>
+                </div>
+                
+                <div id="registerTab" class="auth-tab">
+                    <input type="text" id="registerUsername" placeholder="Username (min. 3 Zeichen)" />
+                    <input type="password" id="registerPassword" placeholder="Passwort (min. 4 Zeichen)" />
+                    <button onclick="register()" class="btn btn-primary">Registrieren</button>
+                </div>
+                
+                <p id="authError" class="error-msg"></p>
+            </div>
+
+            <!-- Eingeloggt Info -->
+            <div id="playerInfoSection" class="player-info hidden">
+                <h3>Willkommen, <span id="playerName"></span>! 👋</h3>
+                <div class="player-stats">
+                    <div class="stat">
+                        <span class="stat-value" id="playerScore">0</span>
+                        <span class="stat-label">Punkte</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value" id="playerGames">0</span>
+                        <span class="stat-label">Spiele</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value" id="playerAccuracy">0%</span>
+                        <span class="stat-label">Quote</span>
+                    </div>
+                </div>
+                <button onclick="logout()" class="btn btn-secondary">Ausloggen</button>
+            </div>
+
+            <!-- Spiel starten -->
+            <div class="game-setup">
+                <h2>Neues Spiel starten</h2>
+                
+                <div class="form-group">
+                    <label>Dein Name (als Gast):</label>
+                    <input type="text" id="guestName" placeholder="Gast" />
+                </div>
+
+                <div class="form-group">
+                    <label>Kategorie:</label>
+                    <select id="categorySelect">
+                        <option value="0">Alle Kategorien</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Schwierigkeit:</label>
+                    <select id="difficultySelect">
+                        <option value="easy">Easy (100 Punkte)</option>
+                        <option value="medium" selected>Medium (200 Punkte)</option>
+                        <option value="hard">Hard (300 Punkte)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Anzahl Fragen:</label>
+                    <select id="questionCountSelect">
+                        <option value="5">5 Fragen</option>
+                        <option value="10" selected>10 Fragen</option>
+                        <option value="15">15 Fragen</option>
+                        <option value="20">20 Fragen</option>
+                    </select>
+                </div>
+
+                <button onclick="startGame()" class="btn btn-primary btn-large">
+                    🎮 Spiel starten!
+                </button>
+            </div>
+        </div>
+
+        <!-- Game View -->
+        <div id="gameView" class="view">
+            <div class="game-header">
+                <div class="game-stat">
+                    <span id="questionNumber">1/10</span>
+                    <span class="label">Frage</span>
+                </div>
+                <div class="game-stat">
+                    <span id="gameScore">0</span>
+                    <span class="label">Punkte</span>
+                </div>
+                <div class="game-stat">
+                    <span id="gameStreak">0🔥</span>
+                    <span class="label">Streak</span>
+                </div>
+                <div class="game-stat timer">
+                    <span id="timer">30</span>
+                    <span class="label">Sekunden</span>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div id="difficultyBadge" class="difficulty-badge">Medium</div>
+                <h2 id="questionText">Frage wird geladen...</h2>
+            </div>
+
+            <div id="answersContainer" class="answers-container">
+                <!-- Antworten werden hier eingefügt -->
+            </div>
+
+            <div id="feedbackContainer" class="feedback-container hidden">
+                <div id="feedbackIcon" class="feedback-icon"></div>
+                <p id="feedbackText"></p>
+                <p id="feedbackPoints"></p>
+                <button onclick="nextQuestion()" class="btn btn-primary">Weiter</button>
+            </div>
+        </div>
+
+        <!-- Result View -->
+        <div id="resultView" class="view">
+            <div class="result-card">
+                <h1>🎮 Spiel beendet!</h1>
+                
+                <div class="result-stats">
+                    <div class="result-stat big">
+                        <span id="resultScore">0</span>
+                        <span class="label">Punkte</span>
+                    </div>
+                    <div class="result-stat">
+                        <span id="resultCorrect">0/0</span>
+                        <span class="label">Richtig</span>
+                    </div>
+                    <div class="result-stat">
+                        <span id="resultAccuracy">0%</span>
+                        <span class="label">Quote</span>
+                    </div>
+                </div>
+
+                <div id="resultRating" class="result-rating"></div>
+
+                <div class="result-actions">
+                    <button onclick="startGame()" class="btn btn-primary">Nochmal spielen</button>
+                    <button onclick="showView('leaderboard')" class="btn btn-secondary">Rangliste</button>
+                    <button onclick="showView('home')" class="btn btn-secondary">Zurück</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Leaderboard View -->
+        <div id="leaderboardView" class="view">
+            <h1>🏆 Rangliste</h1>
+            
+            <div class="leaderboard-table">
+                <div class="leaderboard-header">
+                    <span>Platz</span>
+                    <span>Spieler</span>
+                    <span>Punkte</span>
+                    <span>Spiele</span>
+                    <span>Quote</span>
+                </div>
+                <div id="leaderboardBody">
+                    <!-- Wird per JS gefüllt -->
+                </div>
+            </div>
+
+            <button onclick="showView('home')" class="btn btn-secondary">Zurück</button>
+        </div>
+
+        <!-- Admin View -->
+        <div id="adminView" class="view">
+            <h1>⚙️ Admin - Fragen verwalten</h1>
+
+            <div class="admin-section">
+                <h2>Neue Frage erstellen</h2>
+                
+                <div class="form-group">
+                    <label>Fragetext:</label>
+                    <textarea id="newQuestionText" placeholder="Wie heißt die Hauptstadt von...?"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Richtige Antwort:</label>
+                    <input type="text" id="newCorrectAnswer" placeholder="Die richtige Antwort" />
+                </div>
+
+                <div class="form-group">
+                    <label>Falsche Antworten (eine pro Zeile):</label>
+                    <textarea id="newWrongAnswers" placeholder="Falsche Antwort 1&#10;Falsche Antwort 2&#10;Falsche Antwort 3"></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Kategorie:</label>
+                        <select id="newQuestionCategory">
+                            <option value="0">Keine Kategorie</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Schwierigkeit:</label>
+                        <select id="newQuestionDifficulty">
+                            <option value="easy">Easy</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="hard">Hard</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button onclick="createQuestion()" class="btn btn-primary">Frage speichern</button>
+                <p id="adminMessage" class="success-msg"></p>
+            </div>
+
+            <div class="admin-section">
+                <h2>Vorhandene Fragen</h2>
+                <div id="questionsTable" class="questions-list">
+                    <!-- Wird per JS gefüllt -->
+                </div>
+            </div>
+
+            <button onclick="showView('home')" class="btn btn-secondary">Zurück</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
