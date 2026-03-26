@@ -27,6 +27,6 @@ jobs:
       run: dotnet build ./BrainBuster --no-restore
     - name: Test
       run: dotnet test ./BrainBuster --no-build --verbosity normal
-    #- name: Deploy
-    #  run: dotnet run ./BrainBuster
+    - name: Run Web-App
+      run: dotnet run ./BrainBuster
 
