@@ -29,5 +29,5 @@ jobs:
     - name: Test
       run: dotnet test BrainBuster --no-build --verbosity normal
     - name: Run Web-App
-      run: dotnet run --project /BrainBuster/BrainBuster.csproj
+      run: dotnet run --project ./BrainBuster/BrainBuster.csproj
 
