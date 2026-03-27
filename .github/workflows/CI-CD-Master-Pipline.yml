@@ -4,14 +4,17 @@ name: .NET Core Desktop
 on:
   push:
     branches:
-    - 'release/**'
+    - "master"
+  pull_request:
+    branches: 
+    - "master"
 
 jobs:
 
-  build-and-test:
+  build-and-run:
 
     runs-on: ubuntu-latest
-                           
+
 
     steps:
     - uses: actions/checkout@v4
@@ -25,4 +28,6 @@ jobs:
       run:  dotnet build ./BrainBuster/BrainBuster.csproj --no-restore
     - name: Test
       run: dotnet test ./BrainBuster/Tests/BrainBuster.Tests.csproj --no-build --verbosity normal --collect:"XPlat Code Coverage"
+    - name: Run Web-App
+      run: dotnet run --project ./BrainBuster/BrainBuster.csproj
 
