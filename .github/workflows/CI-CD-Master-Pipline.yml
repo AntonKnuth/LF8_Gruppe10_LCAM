@@ -23,9 +23,9 @@ jobs:
       with:
         dotnet-version: 8.0.x
     - name: Restore Dependencies
-      run: dotnet restore ./BrainBuster.csproj
+      run: dotnet restore ./BrainBuster/BrainBuster.csproj
     - name: Build
-      run:  dotnet build ./BrainBuster.csproj --no-restore
+      run:  dotnet build ./BrainBuster/BrainBuster.csproj --no-restore
     - name: Test
       run: dotnet test ./Tests/BrainBuster.Tests.csproj --no-build --verbosity normal --collect:"XPlat Code Coverage"
     - name: Run Web-App
