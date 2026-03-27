@@ -18,7 +18,7 @@ jobs:
     - name: Settup .NET
       uses: actions/setup-dotnet@v2
       with:
-        dotnet-version: 10.0.x
+        dotnet-version: 8.0.x
     - name: Restore Dependencies
       run: dotnet restore BrainBuster
     - name: Build
