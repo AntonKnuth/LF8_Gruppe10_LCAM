@@ -44,7 +44,7 @@ public class WebServer
     {
         _listener.Start();
         _isRunning = true;
-        Console.WriteLine($"\n🌐 Webserver läuft auf ${_listener.Prefixes[0]}");
+        Console.WriteLine($"\n🌐 Webserver läuft auf http://localhost:8080");
         Console.WriteLine($"📂 wwwroot: {_wwwRoot}");
         Console.WriteLine("\nDrücke Ctrl+C zum Beenden.\n");
 
