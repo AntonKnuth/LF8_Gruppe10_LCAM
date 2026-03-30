@@ -28,6 +28,4 @@ jobs:
       run:  dotnet build ./BrainBuster/BrainBuster.csproj --no-restore
     - name: Test
       run: dotnet test ./BrainBuster/Tests/BrainBuster.Tests.csproj --no-build --verbosity normal --collect:"XPlat Code Coverage"
-    - name: Run Web-App
-      run: dotnet run --project ./BrainBuster/BrainBuster.csproj
 
