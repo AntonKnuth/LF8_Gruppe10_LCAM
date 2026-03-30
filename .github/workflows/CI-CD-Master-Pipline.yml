@@ -37,6 +37,6 @@ jobs:
 
     - name: Pull and Run Image
       run: |
-        docker pull ${{ secrets.DOCKERHUB_USER }}/brainbuster:latest
-        docker run ${{ secrets.DOCKERHUB_USER }}/brainbuster:latest
+        docker pull ${{ secrets.DOCKERHUB_USER }}/brainbuster:tagname
+        docker run ${{ secrets.DOCKERHUB_USER }}/brainbuster:tagname
 
