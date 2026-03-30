@@ -12,8 +12,8 @@ COPY --from=build /app/build .
 COPY --from=build /app/wwwroot ./wwwroot
 COPY --from=build /app/brainbuster.db ./brainbuster.db
 
-EXPOSE 5000
+EXPOSE 8080
 
-ENV ASPNETCORE_URLS=http://+:5000
+ENV ASPNETCORE_URLS=http://+:8080
 
 ENTRYPOINT ["dotnet", "BrainBuster.dll"]

@@ -24,7 +24,7 @@ public class WebServer
     // Eingeloggte Sessions (Token -> PlayerId)
     private readonly Dictionary<string, int> _authTokens = new();
 
-    public WebServer(Database db, GameManager gameManager, int port = 5000)
+    public WebServer(Database db, GameManager gameManager, int port = 8080)
     {
         _db = db;
         _gameManager = gameManager;
@@ -44,7 +44,7 @@ public class WebServer
     {
         _listener.Start();
         _isRunning = true;
-        Console.WriteLine($"\n🌐 Webserver läuft auf http://localhost:8080");
+        Console.WriteLine($"\n🌐 Webserver läuft auf ${_listener.Prefixes[0]}");
         Console.WriteLine($"📂 wwwroot: {_wwwRoot}");
         Console.WriteLine("\nDrücke Ctrl+C zum Beenden.\n");
 
