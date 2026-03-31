@@ -7,7 +7,7 @@ COPY *.sln .
 COPY BrainBuster/*.csproj ./BrainBuster/
 
 RUN dotnet restore ./BrainBuster/BrainBuster.csproj
-RUN dotnet build -c Release -o /app/build
+RUN dotnet build ./BrainBuster/BrainBuster.csproj -c Release -o /app/build
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
