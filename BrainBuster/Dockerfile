@@ -5,6 +5,7 @@ COPY . .
 
 COPY *.sln .
 COPY BrainBuster/*.csproj ./BrainBuster/
+COPY ./BrainBuster/brainbuster.db ./brainbuster.db
 
 RUN dotnet restore ./BrainBuster/BrainBuster.csproj
 RUN dotnet build ./BrainBuster/BrainBuster.csproj -c Release -o /app/build
@@ -14,7 +15,6 @@ WORKDIR /app
 
 COPY --from=build /app/build .
 COPY --from=build /app/wwwroot ./wwwroot
-COPY --from=build /app/brainbuster.db ./brainbuster.db
 
 EXPOSE 8080
 
