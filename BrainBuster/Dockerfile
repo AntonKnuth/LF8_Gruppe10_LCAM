@@ -2,7 +2,11 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /app
 
 COPY . .
-RUN dotnet restore
+
+COPY *.sln .
+COPY BrainBuster/*.csproj ./BrainBuster/
+
+RUN dotnet restore ./BrainBuster/BrainBuster.csproj
 RUN dotnet build -c Release -o /app/build
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
