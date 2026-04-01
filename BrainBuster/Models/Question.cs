@@ -16,7 +16,7 @@ public class Question
     {
         var allAnswers = new List<string> { CorrectAnswer };
         allAnswers.AddRange(WrongAnswers);
-        
+
         // Fisher-Yates Shuffle - der klassiker
         var random = new Random();
         for (int i = allAnswers.Count - 1; i > 0; i--)
@@ -24,7 +24,7 @@ public class Question
             int j = random.Next(i + 1);
             (allAnswers[i], allAnswers[j]) = (allAnswers[j], allAnswers[i]);
         }
-        
+
         return allAnswers;
     }
 

@@ -1,8 +1,10 @@
 using System.Net;
 using System.Text;
+
+using BrainBuster.Models;
+
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using BrainBuster.Models;
 
 namespace BrainBuster;
 
@@ -14,7 +16,7 @@ public class WebServer
     private readonly GameManager _gameManager;
     private readonly string _wwwRoot;
     private bool _isRunning;
-    
+
     // JSON Settings für camelCase (JavaScript Standard)
     private readonly JsonSerializerSettings _jsonSettings = new()
     {
@@ -376,7 +378,7 @@ public class WebServer
     private object HandleCreateQuestion(string body)
     {
         var data = JsonConvert.DeserializeObject<dynamic>(body);
-        
+
         var question = new Question
         {
             Text = data?.text ?? "",
@@ -404,7 +406,7 @@ public class WebServer
             throw new Exception("Ungültige ID");
 
         var data = JsonConvert.DeserializeObject<dynamic>(body);
-        
+
         var question = new Question
         {
             Id = id,
@@ -432,7 +434,7 @@ public class WebServer
     private object HandleCreateCategory(string body)
     {
         var data = JsonConvert.DeserializeObject<dynamic>(body);
-        
+
         var category = new Category
         {
             Name = data?.name ?? "",

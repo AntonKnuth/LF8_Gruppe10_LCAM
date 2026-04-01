@@ -1,5 +1,6 @@
-using Microsoft.Data.Sqlite;
 using BrainBuster.Models;
+
+using Microsoft.Data.Sqlite;
 
 namespace BrainBuster;
 
@@ -21,7 +22,7 @@ public class Database
         connection.Open();
 
         var command = connection.CreateCommand();
-        
+
         // Spieler Tabelle
         command.CommandText = @"
             CREATE TABLE IF NOT EXISTS Players (
@@ -91,7 +92,7 @@ public class Database
         // Default Kategorien einfügen wenn leer
         command.CommandText = "SELECT COUNT(*) FROM Categories";
         var count = (long)command.ExecuteScalar()!;
-        
+
         if (count == 0)
         {
             foreach (var cat in Category.GetDefaultCategories())
@@ -224,7 +225,7 @@ public class Database
     public List<Player> GetTopPlayers(int limit = 10)
     {
         var players = new List<Player>();
-        
+
         using var connection = new SqliteConnection(_connectionString);
         connection.Open();
 
@@ -247,7 +248,7 @@ public class Database
     public List<(string PlayerName, int Score, DateTime PlayedAt)> GetRecentScores(int limit = 10)
     {
         var scores = new List<(string, int, DateTime)>();
-        
+
         using var connection = new SqliteConnection(_connectionString);
         connection.Open();
 
@@ -295,7 +296,7 @@ public class Database
     public List<Category> GetAllCategories()
     {
         var categories = new List<Category>();
-        
+
         using var connection = new SqliteConnection(_connectionString);
         connection.Open();
 
@@ -380,13 +381,13 @@ public class Database
     public List<Question> GetQuestions(int? categoryId = null, string? difficulty = null, int limit = 10)
     {
         var questions = new List<Question>();
-        
+
         using var connection = new SqliteConnection(_connectionString);
         connection.Open();
 
         var command = connection.CreateCommand();
         var sql = "SELECT * FROM Questions WHERE 1=1";
-        
+
         if (categoryId.HasValue && categoryId > 0)
         {
             sql += " AND CategoryId = $category";
@@ -397,7 +398,7 @@ public class Database
             sql += " AND Difficulty = $difficulty";
             command.Parameters.AddWithValue("$difficulty", difficulty);
         }
-        
+
         sql += " ORDER BY RANDOM() LIMIT $limit";
         command.Parameters.AddWithValue("$limit", limit);
         command.CommandText = sql;
@@ -423,7 +424,7 @@ public class Database
     public List<Question> GetAllQuestions()
     {
         var questions = new List<Question>();
-        
+
         using var connection = new SqliteConnection(_connectionString);
         connection.Open();
 
@@ -508,7 +509,7 @@ public class Database
     public List<int> GetPlayerAchievementIds(int playerId)
     {
         var ids = new List<int>();
-        
+
         using var connection = new SqliteConnection(_connectionString);
         connection.Open();
 

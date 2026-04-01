@@ -46,7 +46,7 @@ try
 catch (Exception ex)
 {
     Console.WriteLine($"Server Fehler: {ex.Message}");
-    
+
     // Häufiger Fehler: Port bereits belegt oder keine Admin-Rechte
     if (ex.Message.Contains("Access") || ex.Message.Contains("denied"))
     {

@@ -7,7 +7,7 @@ public class GameManager
 {
     private readonly Database _db;
     private readonly QuizApi _api;
-    
+
     // Aktive Spielsessions (SessionId -> Session)
     private readonly Dictionary<string, GameSession> _sessions = new();
 
@@ -18,7 +18,7 @@ public class GameManager
     }
 
     // Neues Spiel starten
-    public async Task<GameSession> StartGame(int? playerId, string playerName, int categoryId = 0, 
+    public async Task<GameSession> StartGame(int? playerId, string playerName, int categoryId = 0,
         string difficulty = "medium", int questionCount = 10)
     {
         var session = new GameSession
@@ -31,11 +31,11 @@ public class GameManager
 
         // Fragen laden - erst aus DB, dann von API auffüllen
         var questions = new List<Question>();
-        
+
         // Eigene Fragen aus der Datenbank
         var dbQuestions = _db.GetQuestions(categoryId > 0 ? categoryId : null, difficulty, questionCount);
         questions.AddRange(dbQuestions);
-        
+
         // Rest von API holen wenn wir nicht genug haben
         if (questions.Count < questionCount)
         {
@@ -61,7 +61,7 @@ public class GameManager
 
         // Session speichern
         _sessions[session.SessionId] = session;
-        
+
         Console.WriteLine($"[Game] Neues Spiel gestartet: {session.SessionId} mit {session.Questions.Count} Fragen");
         return session;
     }
