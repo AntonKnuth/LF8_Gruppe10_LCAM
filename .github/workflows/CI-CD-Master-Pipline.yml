@@ -29,21 +29,16 @@ jobs:
     - name: Test
       run: dotnet test ./BrainBuster/Tests/BrainBuster.Tests.csproj --no-build --verbosity normal --collect:"XPlat Code Coverage"
 
-    - name: Login to DockerHub
-      uses: docker/login-action@v3
-      with:
-        username: ${{ secrets.DOCKERHUB_USER }}
-        password: ${{ secrets.DOCKERHUB_PASSWORD }}
-    
-    - name: Build and push
-      uses: docker/build-push-action@v6
-      with:
-        context: .
-        file: ./BrainBuster/Dockerfile
-        push: true
-        tags: fiatmann/brainbuster:latest
-    #- name: Pull and Run Image
-    #  run: |
-    #    docker pull fiatmann/brainbuster:latest
-    #    docker compose run -d -p 8080:8080 fiatmann/brainbuster:latest 
-
+    #- name: Login to DockerHub
+    #  uses: docker/login-action@v3
+    #  with:
+    #    username: ${{ secrets.DOCKERHUB_USER }}
+    #    password: ${{ secrets.DOCKERHUB_PASSWORD }}
+    #
+    #- name: Build and push
+    #  uses: docker/build-push-action@v6
+    #  with:
+    #    context: .
+    #    file: ./BrainBuster/Dockerfile
+    #    push: true
+    #    tags: fiatmann/brainbuster:latest
