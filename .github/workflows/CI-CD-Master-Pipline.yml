@@ -42,8 +42,8 @@ jobs:
         file: ./BrainBuster/Dockerfile
         push: true
         tags: fiatmann/brainbuster:latest
-    - name: Pull and Run Image
-      run: |
-        docker pull fiatmann/brainbuster:latest
-        docker compose run -d -p 8080:8080 fiatmann/brainbuster:latest 
+    #- name: Pull and Run Image
+    #  run: |
+    #    docker pull fiatmann/brainbuster:latest
+    #    docker compose run -d -p 8080:8080 fiatmann/brainbuster:latest 
 
