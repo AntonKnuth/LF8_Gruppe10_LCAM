@@ -29,8 +29,7 @@ public class WebServer
         _db = db;
         _gameManager = gameManager;
         _listener = new HttpListener();
-        _listener.Prefixes.Add($"http://localhost:{port}/");
-        _listener.Prefixes.Add($"http://127.0.0.1:{port}/");
+        _listener.Prefixes.Add($"http://+:{port}/");
 
         // wwwroot Pfad finden
         _wwwRoot = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "wwwroot");

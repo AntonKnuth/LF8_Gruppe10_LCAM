@@ -1,0 +1,49 @@
+
+name: .NET Core Desktop
+
+on:
+  push:
+    branches:
+    - "master"
+  pull_request:
+    branches: 
+    - "master"
+
+jobs:
+
+  build-and-run:
+
+    runs-on: ubuntu-latest
+
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Settup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: 8.0.x
+    - name: Restore Dependencies
+      run: dotnet restore ./BrainBuster/BrainBuster.csproj
+    - name: Build
+      run:  dotnet build ./BrainBuster/BrainBuster.csproj --no-restore
+    - name: Test
+      run: dotnet test ./BrainBuster/Tests/BrainBuster.Tests.csproj --no-build --verbosity normal --collect:"XPlat Code Coverage"
+
+    - name: Login to DockerHub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKERHUB_USER }}
+        password: ${{ secrets.DOCKERHUB_PASSWORD }}
+    
+    - name: Build and push
+      uses: docker/build-push-action@v6
+      with:
+        context: .
+        file: ./BrainBuster/Dockerfile
+        push: true
+        tags: fiatmann/brainbuster:latest
+    #- name: Pull and Run Image
+    #  run: |
+    #    docker pull fiatmann/brainbuster:latest
+    #    docker compose run -d -p 8080:8080 fiatmann/brainbuster:latest 
+
