@@ -128,7 +128,7 @@ public class ConsoleGame
     {
         Console.WriteLine("\n=== KATEGORIE WÄHLEN ===");
         var categories = _gameManager.GetCategories();
-        
+
         Console.WriteLine("0. Alle Kategorien (gemischt)");
         for (int i = 0; i < categories.Count; i++)
         {
@@ -277,11 +277,11 @@ public class ConsoleGame
         int questionsPerPlayer = int.TryParse(countInput, out int c) && c > 0 ? c : 5;
 
         Console.WriteLine("\nLade Fragen...");
-        
+
         // Beide Spieler bekommen die gleichen Fragen
         var session1 = await _gameManager.StartGame(null, player1Name, categoryId, difficulty, questionsPerPlayer);
         var session2 = await _gameManager.StartGame(null, player2Name, categoryId, difficulty, questionsPerPlayer);
-        
+
         // Gleiche Fragen für beide
         session2.Questions = new List<Question>(session1.Questions);
 
@@ -363,7 +363,7 @@ public class ConsoleGame
             if (int.TryParse(input, out int idx) && idx >= 1 && idx <= answers.Count)
             {
                 var (isCorrect, points, correct) = _gameManager.AnswerQuestion(session.SessionId, answers[idx - 1]);
-                
+
                 if (isCorrect)
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
@@ -532,7 +532,7 @@ public class ConsoleGame
     {
         Console.Write("\nUsername: ");
         var username = Console.ReadLine()?.Trim() ?? "";
-        
+
         if (string.IsNullOrEmpty(username) || username.Length < 3)
         {
             Console.WriteLine("Username muss mindestens 3 Zeichen haben!");
@@ -565,7 +565,7 @@ public class ConsoleGame
     {
         var password = "";
         ConsoleKeyInfo key;
-        
+
         do
         {
             key = Console.ReadKey(true);

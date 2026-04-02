@@ -1,7 +1,9 @@
 using System.Net.Http;
 using System.Web;
-using Newtonsoft.Json;
+
 using BrainBuster.Models;
+
+using Newtonsoft.Json;
 
 namespace BrainBuster;
 
@@ -25,12 +27,12 @@ public class QuizApi
         {
             // URL zusammenbauen
             var url = $"{BASE_URL}?amount={amount}&type=multiple";
-            
+
             if (categoryApiId.HasValue && categoryApiId > 0)
             {
                 url += $"&category={categoryApiId}";
             }
-            
+
             if (!string.IsNullOrEmpty(difficulty) && difficulty != "any")
             {
                 url += $"&difficulty={difficulty}";
@@ -80,9 +82,9 @@ public class QuizApi
         {
             var response = await _client.GetStringAsync("https://opentdb.com/api_category.php");
             var catResponse = JsonConvert.DeserializeObject<OpenTdbCategoryResponse>(response);
-            
+
             return catResponse?.TriviaCategories?
-                .ToDictionary(c => c.Id, c => c.Name) 
+                .ToDictionary(c => c.Id, c => c.Name)
                 ?? new Dictionary<int, string>();
         }
         catch
