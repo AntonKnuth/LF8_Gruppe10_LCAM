@@ -27,4 +27,10 @@ jobs:
       run: dotnet format ./BrainBuster/BrainBuster.csproj -v detailed --verify-no-changes;
     - name: Test
       run: dotnet test ./BrainBuster/Tests/BrainBuster.Tests.csproj --no-build --verbosity normal --collect:"XPlat Code Coverage"
+  FINISH:
+    runs-on: ubuntu-latest
+    steps: 
+      - name:  Fishing
+        run: echo "All done, waiting for the next commit to master or a pull request to master"
+      
 
