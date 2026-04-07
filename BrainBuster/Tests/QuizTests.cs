@@ -30,7 +30,7 @@ public class QuizTests
     [Fact]
     public void RedTest()
     {
-        Assert.Equal(1 == 0);
+        Assert.Equal(1, 0);
     }
 
     [Fact]
