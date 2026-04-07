@@ -28,12 +28,6 @@ public class QuizTests
     }
 
     [Fact]
-    public void RedTest()
-    {
-        Assert.Equal(1, 0);
-    }
-
-    [Fact]
     public void Question_IsCorrect_ShouldBeCaseInsensitive()
     {
         // Case insensitive sollte funktionieren
