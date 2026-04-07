@@ -40,4 +40,4 @@ jobs:
       - name: C# Lint
         run: dotnet format ./BrainBuster/BrainBuster.csproj -v detailed --verify-no-changes;
       - name: Test
-        run: dotnet test --no-build --verbosity normal
+        run: dotnet test ./Tests --no-build --verbosity normal
