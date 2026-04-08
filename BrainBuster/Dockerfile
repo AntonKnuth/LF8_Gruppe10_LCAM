@@ -1,9 +1,8 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-COPY BrainBusterV2.sln .
-COPY BrainBusterV2.csproj .
-COPY BrainBusterV2.Tests/BrainBusterV2.Tests.csproj BrainBusterV2.Tests/
+COPY ./BrainBuster/BrainBusterV2.sln .
+COPY ./BrainBuster/BrainBusterV2.csproj .
 RUN dotnet restore
 
 COPY . .
