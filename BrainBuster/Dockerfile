@@ -3,7 +3,7 @@ WORKDIR /app
 
 COPY . .
 
-COPY /BrainBusterV2.sln .
+COPY /BrainBuster/BrainBusterV2.sln .
 COPY /BrainBuster/*.csproj ./BrainBuster/
 COPY /BrainBuster/Models ./Models/
 COPY /BrainBuster/Services ./Services/
