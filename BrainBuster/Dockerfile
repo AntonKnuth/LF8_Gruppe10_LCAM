@@ -11,8 +11,8 @@ COPY ./BrainBuster/brainbuster.db ./brainbuster.db
 
 COPY ./BrainBuster/wwwroot ./wwwroot
 
-RUN dotnet restore ./BrainBuster/BrainBusterV2.csproj
-RUN dotnet build ./BrainBuster/BrainBusterV2.csproj -c Release -o /app/build
+RUN dotnet restore 
+RUN dotnet build -c Release -o /app/build
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
