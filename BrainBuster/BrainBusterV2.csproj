@@ -1,30 +1,20 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <IsTestProject>false</IsTestProject>
-	<CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
-	<AnalysisLevel>8.0</AnalysisLevel>
+    <UserSecretsId>47ef6a62-be48-463c-a630-538c63fe1976</UserSecretsId>
+    <DefaultItemExcludes>$(DefaultItemExcludes);BrainBusterV2.Tests\**</DefaultItemExcludes>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="10.0.5" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
-
-  <!-- Tests Ordner ausschließen - die haben ihr eigenes Projekt -->
-  <ItemGroup>
-    <Compile Remove="Tests\**" />
-  </ItemGroup>
-
-  <!-- wwwroot Dateien mitkopieren -->
   <ItemGroup>
     <None Update="wwwroot\**\*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-
 </Project>
