@@ -4,15 +4,15 @@ WORKDIR /app
 COPY . .
 
 COPY BrainBusterV2.sln .
-COPY /*.csproj ./BrainBuster/
-COPY /Models ./Models/
-COPY /Services ./Services/
-COPY /brainbuster.db ./brainbuster.db
+COPY BrainBuster/*.csproj ./BrainBuster/
+COPY BrainBuster/Models ./Models/
+COPY BrainBuster/Services ./Services/
+COPY BrainBuster/brainbuster.db ./brainbuster.db
 
-COPY /wwwroot ./wwwroot
+COPY BrainBuster/wwwroot ./wwwroot
 
-RUN dotnet restore ./BrainBusterV2.csproj
-RUN dotnet build ./BrainBusterV2.csproj -c Release -o /app/build
+RUN dotnet restore ./BrainBuster/BrainBusterV2.csproj
+RUN dotnet build ./BrainBuster/BrainBusterV2.csproj -c Release -o /app/build
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
