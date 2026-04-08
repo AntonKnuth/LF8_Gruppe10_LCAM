@@ -1,11 +1,11 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /app
 
+COPY . .
 COPY ./BrainBuster/BrainBusterV2.sln .
 COPY ./BrainBuster/BrainBusterV2.csproj .
 RUN dotnet restore
 
-COPY . .
 RUN dotnet build -c Release --no-restore
 RUN dotnet publish -c Release -o /app --no-build
 
