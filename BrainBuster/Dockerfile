@@ -9,7 +9,7 @@ RUN dotnet restore ./BrainBuster/BrainBusterV2.csproj
 COPY BrainBuster/. ./BrainBuster/
 
 WORKDIR /app/BrainBuster
-RUN dotnet build -c Release -o /app/build
+RUN dotnet build ./BrainBuster/BrainBusterV2.csproj -c Release -o /app/build
 
 # Runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
