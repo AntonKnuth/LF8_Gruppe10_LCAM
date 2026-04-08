@@ -2,12 +2,14 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /app
 
 COPY . .
-COPY ./BrainBuster/BrainBusterV2.sln .
-COPY ./BrainBuster/BrainBusterV2.csproj .
-RUN dotnet restore
+COPY *.sln .
+COPY BrainBuster/*.csproj ./BrainBuster/
+COPY ./BrainBuster/brainbuster.db ./brainbuster.db
 
-RUN dotnet build -c Release --no-restore
-RUN dotnet publish -c Release -o /app --no-build
+COPY ./BrainBuster/wwwroot ./wwwroot
+
+RUN dotnet restore ./BrainBuster/BrainBusterV2.csproj
+RUN dotnet build ./BrainBuster/BrainBusterV2.csproj -c Release -o /app/build
 
 FROM mcr.microsoft.com/dotnet/runtime:8.0
 WORKDIR /app
