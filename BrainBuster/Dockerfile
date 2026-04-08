@@ -5,6 +5,8 @@ COPY . .
 
 COPY *.sln .
 COPY BrainBuster/*.csproj ./BrainBuster/
+COPY BrainBuster/Models/ ./BrainBuster/Models/
+COPY BrainBuster/Services/ ./BrainBuster/Services/
 COPY ./BrainBuster/brainbuster.db ./brainbuster.db
 
 COPY ./BrainBuster/wwwroot ./wwwroot
