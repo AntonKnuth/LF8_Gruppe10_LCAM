@@ -27,8 +27,7 @@ public class Server
     {
         _db = db;
         _game = game;
-        _listener.Prefixes.Add($"http://localhost:{port}/");
-        _listener.Prefixes.Add($"http://127.0.0.1:{port}/");
+        _listener.Prefixes.Add($"http://+:{port}/");
         _webRoot = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "wwwroot");
         if (!Directory.Exists(_webRoot))
             _webRoot = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
