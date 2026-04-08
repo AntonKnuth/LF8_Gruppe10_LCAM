@@ -1,26 +1,20 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-WORKDIR /app
+WORKDIR /src
+
+COPY BrainBusterV2.sln .
+COPY BrainBusterV2.csproj .
+COPY BrainBusterV2.Tests/BrainBusterV2.Tests.csproj BrainBusterV2.Tests/
+RUN dotnet restore
 
 COPY . .
+RUN dotnet build -c Release --no-restore
+RUN dotnet test -c Release --no-build --no-restore
+RUN dotnet publish -c Release -o /app --no-build
 
-COPY *.sln .
-COPY BrainBuster/Models ./Models
-COPY BrainBuster/Services ./Services
-COPY BrainBuster/*.csproj ./BrainBuster/
-COPY ./BrainBuster/brainbuster.db ./brainbuster.db
-
-COPY ./BrainBuster/wwwroot ./wwwroot
-
-RUN dotnet restore 
-RUN dotnet build -c Release -o /app/build
-
-FROM mcr.microsoft.com/dotnet/aspnet:8.0
+FROM mcr.microsoft.com/dotnet/runtime:8.0
 WORKDIR /app
-
-COPY --from=build /app/build .
+COPY --from=build /app .
 
 EXPOSE 8080
-
-ENV ASPNETCORE_URLS=http://+:8080
 
 ENTRYPOINT ["dotnet", "BrainBusterV2.dll"]
