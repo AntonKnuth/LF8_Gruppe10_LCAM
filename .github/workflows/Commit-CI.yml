@@ -19,9 +19,9 @@ jobs:
       with:
         dotnet-version: 8.0.x
     - name: Restore Dependencies
-      run: dotnet restore ./BrainBuster/BrainBuster.csproj
+      run: dotnet restore ./BrainBuster/BrainBusterV2.csproj
     - name: Build
-      run:  dotnet build ./BrainBuster/BrainBuster.csproj --no-restore
+      run:  dotnet build ./BrainBuster/BrainBusterV2.csproj --no-restore
     - name: Artifact Upload
       uses: actions/upload-artifact@v4
       with:
@@ -38,6 +38,6 @@ jobs:
           name: build-artifact
           path: ./
       - name: C# Lint
-        run: dotnet format ./BrainBuster/BrainBuster.csproj -v detailed --verify-no-changes;
+        run: dotnet format ./BrainBuster/BrainBusterV2.csproj -v detailed --verify-no-changes
       - name: Test
-        run: dotnet test ./BrainBuster/Tests/ --verbosity minimal
+        run: dotnet test ./BrainBuster/BrainBusterV2.Tests/ --verbosity minimal

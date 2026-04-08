@@ -1,46 +1,21 @@
-namespace BrainBuster.Models;
+namespace BrainBusterV2;
 
-// Der Spieler mit Stats und allem drum und dran
 public class Player
 {
     public int Id { get; set; }
     public string Username { get; set; } = "";
-    public string PasswordHash { get; set; } = ""; // simple hash reicht für prototyp
-    public int TotalScore { get; set; } = 0;
-    public int GamesPlayed { get; set; } = 0;
-    public int QuestionsCorrect { get; set; } = 0;
-    public int QuestionsTotal { get; set; } = 0;
-    public int CurrentStreak { get; set; } = 0; // aktuelle Richtig-Serie
-    public int BestStreak { get; set; } = 0; // beste Serie ever
-    public DateTime CreatedAt { get; set; } = DateTime.Now;
-    public DateTime LastPlayed { get; set; } = DateTime.Now;
+    public string PasswordHash { get; set; } = "";
+    public int TotalScore { get; set; }
+    public int GamesPlayed { get; set; }
+    public int BestStreak { get; set; }
 
-    // Trefferquote berechnen - für Stats
-    public double GetAccuracy()
+    // TODO: SHA256 mit festem Salt ist unsicher. Für Produktion bcrypt/Argon2 verwenden.
+    public static string Hash(string pw)
     {
-        if (QuestionsTotal == 0) return 0;
-        return Math.Round((double)QuestionsCorrect / QuestionsTotal * 100, 1);
+        using var sha = System.Security.Cryptography.SHA256.Create();
+        var bytes = System.Text.Encoding.UTF8.GetBytes(pw + "salt123");
+        return Convert.ToBase64String(sha.ComputeHash(bytes));
     }
 
-    // Durchschnittspunkte pro Spiel
-    public double GetAverageScore()
-    {
-        if (GamesPlayed == 0) return 0;
-        return Math.Round((double)TotalScore / GamesPlayed, 1);
-    }
-
-    // Simplen Hash erstellen - NICHT für echte Produktion verwenden lol
-    public static string HashPassword(string password)
-    {
-        using var sha256 = System.Security.Cryptography.SHA256.Create();
-        var bytes = System.Text.Encoding.UTF8.GetBytes(password + "brainbuster_salt");
-        var hash = sha256.ComputeHash(bytes);
-        return Convert.ToBase64String(hash);
-    }
-
-    // Passwort checken
-    public bool CheckPassword(string password)
-    {
-        return PasswordHash == HashPassword(password);
-    }
+    public bool CheckPassword(string pw) => PasswordHash == Hash(pw);
 }
