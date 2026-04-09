@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Blendet den angegebenen View ein und lädt zugehörige Daten
-function showView(name) {
+ function showView(name) {
     var views = document.querySelectorAll('.view');
     for (var i = 0; i < views.length; i++) {
         views[i].classList.remove('active');
