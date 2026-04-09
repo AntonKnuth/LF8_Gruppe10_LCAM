@@ -4,6 +4,8 @@ using Microsoft.Extensions.Configuration;
 
 namespace BrainBusterV2;
 
+// Hallo
+
 /// <summary>Liest Admin-Zugangsdaten aus den .NET User Secrets.</summary>
 public static class Secrets
 {
